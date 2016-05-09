@@ -9,9 +9,11 @@
 #import "YSLDraggableCardContainer.h"
 
 static const CGFloat kPreloadViewCount = 3.0f;
-static const CGFloat kSecondCard_Scale = 0.98f;
-static const CGFloat kTherdCard_Scale = 0.96f;
-static const CGFloat kCard_Margin = 7.0f;
+static const CGFloat kSecondCard_Scale = 0.90f;
+static const CGFloat kTherdCard_Scale = 0.8f;
+static const CGFloat kSecondAlpha = 0.6f;
+static const CGFloat kThirdAlpha = 0.4f;
+static const CGFloat kCard_Margin = -30.0f;
 static const CGFloat kDragCompleteCoefficient_width_default = 0.8f;
 static const CGFloat kDragCompleteCoefficient_height_default = 0.6f;
 
@@ -121,11 +123,13 @@ typedef NS_ENUM(NSInteger, MoveSlope) {
                         if (i == 1 && _currentIndex != 0) {
                             view.frame = CGRectMake(_defaultFrame.origin.x, _defaultFrame.origin.y + kCard_Margin, _defaultFrame.size.width, _defaultFrame.size.height);
                             view.transform = CGAffineTransformScale(CGAffineTransformIdentity,kSecondCard_Scale,kSecondCard_Scale);
+                            view.alpha = kSecondAlpha;
                         }
                         
                         if (i == 2 && _currentIndex != 0) {
                             view.frame = CGRectMake(_defaultFrame.origin.x, _defaultFrame.origin.y + (kCard_Margin * 2), _defaultFrame.size.width, _defaultFrame.size.height);
                             view.transform = CGAffineTransformScale(CGAffineTransformIdentity,kTherdCard_Scale,kTherdCard_Scale);
+                            view.alpha = kThirdAlpha;
                         }
                          _loadedIndex++;
                     }
@@ -255,6 +259,7 @@ typedef NS_ENUM(NSInteger, MoveSlope) {
             view.transform = CGAffineTransformIdentity;
             view.frame = CGRectMake(_defaultFrame.origin.x, _defaultFrame.origin.y + (kCard_Margin - (ratio * kCard_Margin)), _defaultFrame.size.width, _defaultFrame.size.height);
             view.transform = CGAffineTransformScale(CGAffineTransformIdentity,kSecondCard_Scale + (ratio * (1 - kSecondCard_Scale)),kSecondCard_Scale + (ratio * (1 - kSecondCard_Scale)));
+            view.alpha = kSecondAlpha;
         }
     }
     if (_currentViews.count == 3) {
@@ -264,12 +269,14 @@ typedef NS_ENUM(NSInteger, MoveSlope) {
                 view.transform = CGAffineTransformIdentity;
                 view.frame = CGRectMake(_defaultFrame.origin.x, _defaultFrame.origin.y + (kCard_Margin - (ratio * kCard_Margin)), _defaultFrame.size.width, _defaultFrame.size.height);
                 view.transform = CGAffineTransformScale(CGAffineTransformIdentity,kSecondCard_Scale + (ratio * (1 - kSecondCard_Scale)),kSecondCard_Scale + (ratio * (1 - kSecondCard_Scale)));
+                view.alpha = kSecondAlpha;
             }
             {
                 UIView *view = _currentViews[2];
                 view.transform = CGAffineTransformIdentity;
                 view.frame = CGRectMake(_defaultFrame.origin.x, _defaultFrame.origin.y + ((kCard_Margin * 2) - (ratio * kCard_Margin)), _defaultFrame.size.width, _defaultFrame.size.height);
                 view.transform = CGAffineTransformScale(CGAffineTransformIdentity,kTherdCard_Scale + (ratio * (kSecondCard_Scale - kTherdCard_Scale)),kTherdCard_Scale + (ratio * (kSecondCard_Scale - kTherdCard_Scale)));
+                view.alpha = kThirdAlpha;
             }
         }
     }
@@ -289,16 +296,19 @@ typedef NS_ENUM(NSInteger, MoveSlope) {
         if (i == 0) {
             view.transform = CGAffineTransformIdentity;
             view.frame = _defaultFrame;
+            view.alpha = 1.f;
         }
         if (i == 1) {
             view.transform = CGAffineTransformIdentity;
             view.frame = CGRectMake(_defaultFrame.origin.x, _defaultFrame.origin.y + kCard_Margin, _defaultFrame.size.width, _defaultFrame.size.height);
             view.transform = CGAffineTransformScale(CGAffineTransformIdentity,kSecondCard_Scale,kSecondCard_Scale);
+            view.alpha = kSecondAlpha;
         }
         if (i == 2) {
             view.transform = CGAffineTransformIdentity;
             view.frame = CGRectMake(_defaultFrame.origin.x, _defaultFrame.origin.y + (kCard_Margin * 2), _defaultFrame.size.width, _defaultFrame.size.height);
             view.transform = CGAffineTransformScale(CGAffineTransformIdentity,kTherdCard_Scale,kTherdCard_Scale);
+            view.alpha = kThirdAlpha;
         }
     }
 }
